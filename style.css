@@ -1,3 +1,7 @@
+/* * {
+	border: 2px solid red;
+} */
+
 html, body {
   margin: 0px;
   height: 100%;
@@ -74,4 +78,47 @@ html, body {
 
 .header {
   background-color: #999;
+}
+
+/* TextTool styles (moved from inline in textTool.js) */
+.text-tool{
+	display:flex;
+	gap:8px;
+	align-items:flex-start;
+	flex-wrap:wrap;
+}
+.text-tool__input{
+	flex:2;
+	min-width:200px;
+}
+.text-tool__label{
+	display:block;
+	margin-bottom:4px;
+}
+.text-tool__textarea{
+	width:100%;
+	box-sizing:border-box;
+	max-height:100px;
+	overflow:auto;
+}
+.text-tool__controls{
+	flex:1;
+	min-width:140px;
+	display:flex;
+	flex-direction:row;
+	gap:8px;
+	align-items:flex-start;
+}
+.text-tool__box{
+	border:1px solid #ddd;
+	padding:8px;
+	border-radius:4px;
+}
+.text-tool__input-number,
+.text-tool__color{
+	width:100%;
+	box-sizing:border-box;
+}
+.text-tool__actions{
+	margin-top:8px;
 }

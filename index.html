@@ -15,13 +15,18 @@
     <script src="lineToTool.js"></script>
     <script src="sprayCanTool.js"></script>
     <script src="mirrorDrawTool.js"></script>
-
+    <script src="ellipseTool.js"></script>
+    <script src="rectangleTool.js"></script>
+    <script src="eraserTool.js"></script>
+    <script src="textTool.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
   	<div class="wrapper">
       <div class="box header">My Drawing App
 
+        <button id="undoButton">Undo</button>
+        <button id="redoButton">Redo</button>
         <button id="clearButton">Clear</button>
         <button id="saveImageButton">Save Image</button>
       </div>
@@ -29,6 +34,26 @@
       <div id="content"></div>
       <div class="box colourPalette"></div>
       <div class="box options"></div>
+      <!-- templates for tool option UIs (hidden) -->
+      <div id="text-tool-template" style="display:none;">
+        <div class="text-tool">
+          <div class="text-tool__input">
+            <label class="text-tool__label">Text</label>
+            <textarea id="textContent" rows="3" class="text-tool__textarea"></textarea>
+            <div class="text-tool__actions"><button id="clearText">Clear Text</button></div>
+          </div>
+          <div class="text-tool__controls">
+            <div class="text-tool__box">
+              <label>Size</label>
+              <input id="textSize" type="number" min="6" max="200" class="text-tool__input-number"/>
+            </div>
+            <div class="text-tool__box">
+              <label>Color</label>
+              <input id="textColor" type="color" class="text-tool__color"/>
+            </div>
+          </div>
+        </div>
+      </div>
 	</div>
   </body>
 </html>

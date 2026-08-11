@@ -3,7 +3,8 @@
 var toolbox = null;
 var colourP = null;
 var helpers = null;
-
+var undoStack = [];
+var redoStack = [];
 
 function setup() {
 
@@ -11,6 +12,7 @@ function setup() {
 	canvasContainer = select('#content');
 	var c = createCanvas(canvasContainer.size().width, canvasContainer.size().height);
 	c.parent("content");
+	noSmooth();
 
 	//create helper functions and the colour palette
 	helpers = new HelperFunctions();
@@ -22,9 +24,15 @@ function setup() {
 	//add the tools to the toolbox.
 	toolbox.addTool(new FreehandTool());
 	toolbox.addTool(new LineToTool());
+	toolbox.addTool(new RectangleTool());
+	toolbox.addTool(new TextTool());
+	toolbox.addTool(new EllipseTool());
 	toolbox.addTool(new SprayCanTool());
-	toolbox.addTool(new mirrorDrawTool());
+	toolbox.addTool(new EraserTool());
+	toolbox.addTool(new MirrorDrawTool());
 	background(255);
+	// save initial state for undo/redo
+	saveState();
 
 }
 
@@ -38,4 +46,62 @@ function draw() {
 	} else {
 		alert("it doesn't look like your tool has a draw method!");
 	}
+}
+
+function mouseReleased() {
+	// only record state when release happens over the canvas
+	if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+		markChange();
+	}
+}
+
+function saveState(){
+	if (canvas) {
+		console.log('saveState', undoStack.length, redoStack.length);
+		undoStack.push(get(0,0,width,height));
+		if (undoStack.length > 20) {
+			undoStack.shift();
+		}
+	}
+}
+
+function undo(){
+	console.log('undo called', undoStack.length, redoStack.length);
+	if (undoStack.length > 1) {
+		redoStack.push(undoStack.pop());
+		var previous = undoStack[undoStack.length - 1];
+		clear();
+		background(255);
+		image(previous, 0, 0, width, height);
+		loadPixels();
+	}
+}
+
+function redo(){
+	if (redoStack.length > 0) {
+		var next = redoStack.pop();
+		undoStack.push(next);
+		clear();
+		background(255);
+		image(next, 0, 0, width, height);
+		loadPixels();
+	}
+}
+
+function markChange(){
+	// call after a permanent drawing action finishes
+	if (mouseIsPressed === false) {
+		if (redoStack.length > 0) {
+			redoStack = [];
+		}
+		saveState();
+	}
+}
+
+function clearCanvasState(){
+	background(255);
+	loadPixels();
+	undoStack = [];
+	redoStack = [];
+	saveState();
 }
