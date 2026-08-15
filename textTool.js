@@ -6,6 +6,7 @@ function TextTool(){
     var content = "Enter text here";
     var fontSize = 24;
     var fontColor = "#000000";
+    var fontFamily = '"Didot", "Bodoni MT", "Cinzel", serif';
 
     // internal flags for preview/commit
     var savedBaseline = false; // whether we've saved the current pixels for preview
@@ -27,6 +28,7 @@ function TextTool(){
         push();
         noStroke();
         fill(fontColor);
+        textFont(fontFamily);
         textSize(fontSize);
         textAlign(LEFT, TOP);
         text(content, mouseX, mouseY);
@@ -43,6 +45,7 @@ function TextTool(){
                 push();
                 noStroke();
                 fill(fontColor);
+                textFont(fontFamily);
                 textSize(fontSize);
                 textAlign(LEFT, TOP);
                 text(content, mouseX, mouseY);

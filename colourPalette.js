@@ -24,7 +24,7 @@ function ColourPalette() {
 		stroke(c);
 
 		//add a new border to the selected colour
-		this.style("border", "2px solid blue");
+		this.style("border", "2px solid rgb(75, 210, 255)");
 	}
 
 	//load in the colours
@@ -49,7 +49,7 @@ function ColourPalette() {
 			colourSwatch.mouseClicked(colourClick)
 		}
 
-		select(".colourSwatches").style("border", "2px solid blue");
+		select(".colourSwatches").style("border", "2px solid rgb(75, 210, 255)");
 	};
 	//call the loadColours function now it is declared
 	this.loadColours();
